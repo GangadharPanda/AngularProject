@@ -1,0 +1,74 @@
+
+<div class="jumbotron col-md-10  col-md-offset-1">
+  <div class="container col-md-12  text-left">
+          <h3>Employee List</h3>
+          <div class="col-md-12">
+            <div class="input-group add-on float-right" style="width: 10cm " *ngIf="isSearchNeeded">
+                <input class="form-control" 
+                placeholder="Search" 
+                [(ngModel)]="searchText" 
+                name="search" id="search" 
+                type="text"
+                (change)="onSearchTextChange(event)" 
+                >
+                <div class="input-group-btn">
+                  <button class="btn btn-default" 
+                  type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+              <br>
+            </div>
+        </div>
+        <table class="table table-bordered table-hovered table-striped" scrollY=true maxHeight='30' bordered=true>
+          <thead>
+            <tr>
+              <th class="col-sm-1">#</th>
+              <th class="col-sm-1">ID</th>
+              <th class="col-sm-3">First Name</th>
+              <th class="col-sm-2">Last Name</th>
+              <th class="col-sm-4">Email</th>
+              <th class="col-sm-1" *ngIf="isDeleteNeeded">Delete</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="this.employeeList != null">
+              <tr *ngFor="let ele of this.employeeList; index as i">
+                  <td class="col-sm-1">{{i+1}}</td>
+                  <td class="col-sm-1">{{ele.idDisplay}}</td>
+                  <td class="col-sm-3">{{ele.firstName}}</td>
+                  <td class="col-sm-2">{{ele.lastName}}</td>
+                  <td class="col-sm-4">{{ele.email}}</td>
+                  <td class="col-sm-1" *ngIf="isDeleteNeeded"><a (click)="deleteEmployee(ele.id)" class="glyphicon glyphicon-trash alert-danger"></a></td>
+                </tr>
+            </tbody>
+         </table>
+         <div class="col-md-12  text-right">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center" >
+                <li class="page-item ">
+                  <a title="Navigate To First Page"
+                   class="page-link glyphicon glyphicon-fast-backward"
+                     (click)="firstPageClick()" tabindex="-1" ></a>
+                </li>
+                <li class="page-item">
+                  <a title="Navigate To Previous Page" 
+                  class="page-link glyphicon glyphicon-triangle-left" 
+                  (click)="previousPageClick()"></a>
+                </li>
+                <li class="page-item">
+                  <a title="Navigate To Next Page" 
+                  class="page-link glyphicon glyphicon-triangle-right"
+                  (click)="nextPageClick()"></a>
+                </li>
+                <li class="page-item">
+                  <a  title="Navigate To Last Page" 
+                  class="page-link glyphicon glyphicon-fast-forward"
+                   (click)="lastPageClick()"></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+         <div *ngIf="this.employeeList != null && this.employeeList.length==0">
+          <p>No data found for search Criteria!</p>
+          </div>
+  </div>
+  
